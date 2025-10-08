@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from "react";
-import { Link, useLocation, useNavigate } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { assets } from "../assets/assets.js";
-import { UserButton, useClerk, useUser } from "@clerk/clerk-react";
+import { UserButton, useClerk } from "@clerk/clerk-react";
+import { useAppContext } from "../context/AppContext.jsx";
 const BookIcon = () => (
   <svg
     className="w-4 h-4 text-gray-700"
@@ -33,9 +34,10 @@ const Navbar = () => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const { openSignIn } = useClerk();
-  const { user } = useUser();
-  const navigate = useNavigate();
+
   const location = useLocation();
+
+  const { user, navigate, isOwner, setShowHotelReg } = useAppContext();
 
   useEffect(() => {
     if (location.pathname != "/") {
